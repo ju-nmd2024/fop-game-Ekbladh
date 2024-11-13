@@ -1,7 +1,8 @@
-let x = 100;
-let direction = "forward";
 let state = "start";
-let gameTimer = 0;
+//let gameTimer = 0;
+let speed = 0;
+let x = 1000;
+let y = -300;
 
 function setup() {
   createCanvas(1000, 720);
@@ -176,22 +177,16 @@ function draw() {
     winScreen(); //changes depening on win or loss
   }
 
-  //rocket animation
-  rocketShip(x, 500);
-  if (direction === "forward") {
-    if (x < 2000) {
-      x = x + 3;
-    } else {
-      direction = "backwards";
-    }
-  } else if (direction === "backwards") {
-    if (x > 100) {
-      x = x - 3;
-    } else {
-      direction = "forward";
-    }
+  rocketShip(x, y);
+  y = y + speed;
+
+  if (keyIsDown(32)) {
+    speed = -3;
+  } else {
+    speed = 3;
   }
 }
+
 //gets you from start to game, then result back to game
 function mouseClicked() {
   if (state === "start") {
