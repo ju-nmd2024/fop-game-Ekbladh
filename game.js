@@ -1,8 +1,11 @@
 let state = "start";
-//let gameTimer = 0;
-let speed = 0;
+let speed = 0.1;
 let x = 1000;
-let y = -300;
+let randomNumber = Math.random();
+randomNumber = -1000 + randomNumber * -2000;
+randomNumber = Math.floor(randomNumber);
+let y = randomNumber;
+console.log(y);
 
 function setup() {
   createCanvas(1000, 720);
@@ -168,22 +171,25 @@ function draw() {
     startScreen();
   } else if (state === "game") {
     gameScreen();
-    gameTimer = gameTimer + 1; //needs to be changed from time to be connected to when the rocket lands
-    if (gameTimer >= 200) {
-      gameTimer = 0;
+
+    if (y >= 910 && speed >= 20) {
+      y = randomNumber;
+      speed = 0;
       state = "result";
     }
   } else if (state === "result") {
     winScreen(); //changes depening on win or loss
   }
 
-  rocketShip(x, y);
-  y = y + speed;
+  if (state === "game") {
+    rocketShip(x, y);
+    y = y + speed;
 
-  if (keyIsDown(32)) {
-    speed = -3;
-  } else {
-    speed = 3;
+    if (keyIsDown(32)) {
+      speed = speed - 0.3;
+    } else {
+      speed = speed + 0.1;
+    }
   }
 }
 
