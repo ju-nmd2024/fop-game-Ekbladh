@@ -1,11 +1,7 @@
 let state = "start";
-let speed = 0.1;
+let speed = -5;
 let x = 1000;
-let randomNumber = Math.random();
-randomNumber = -1000 + randomNumber * -2000;
-randomNumber = Math.floor(randomNumber);
-let y = randomNumber;
-console.log(y);
+let y = -1000;
 
 function setup() {
   createCanvas(1000, 720);
@@ -35,12 +31,12 @@ function winScreen() {
   text("You win!", 500 - 163, 200);
 }
 
-function dieScreen() {
+function lossScreen() {
   strokeWeight(0);
   fill(170, 170, 170);
   textSize(75);
   textStyle(BOLD);
-  text("You died!", 500 - 180, 200);
+  text("You lost!", 500 - 180, 200);
 }
 
 function marsAndSpace() {
@@ -172,13 +168,19 @@ function draw() {
   } else if (state === "game") {
     gameScreen();
 
-    if (y >= 910 && speed >= 20) {
-      y = randomNumber;
-      speed = 0;
-      state = "result";
+    if (y >= 902 && speed >= 1) {
+      y = -1000;
+      speed = 5;
+      state = "win";
+    } else if (y >= 902 && speed >= 1) {
+      y = -1000;
+      speed = 5;
+      state = "loss";
     }
-  } else if (state === "result") {
-    winScreen(); //changes depening on win or loss
+  } else if (state === "win") {
+    winScreen();
+  } else if (state === "loss") {
+    lossScreen();
   }
 
   if (state === "game") {
@@ -186,9 +188,11 @@ function draw() {
     y = y + speed;
 
     if (keyIsDown(32)) {
-      speed = speed - 0.3;
+      speed = speed - 0.1;
+      console.log(speed);
     } else {
       speed = speed + 0.1;
+      console.log(speed);
     }
   }
 }
@@ -197,7 +201,9 @@ function draw() {
 function mouseClicked() {
   if (state === "start") {
     state = "game";
-  } else if (state === "result") {
+  } else if (state === "loss") {
+    state = "game";
+  } else if (state === "win") {
     state = "game";
   }
 }
