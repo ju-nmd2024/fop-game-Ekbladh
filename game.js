@@ -61,7 +61,7 @@ function marsAndSpace() {
   point(150, 510);
   point(300, 70);
   point(450, 540);
-  point(500, 329);
+  point(470, 329);
   point(700, 520);
   point(800, 240);
   point(100, 300);
@@ -112,7 +112,7 @@ function rocketShipFlame() {
   push();
   fill(240, 196, 52);
   strokeWeight(0);
-  triangle(x - 15, y + 270, x + 0, y + 298, x + 15, y + 270);
+  triangle(x - 15, y + 272, x + 0, y + 298, x + 15, y + 272);
   pop();
 }
 
@@ -122,15 +122,15 @@ function rocketShip(x, y) {
   //Top wing
   strokeWeight(0);
   fill(130, 130, 130);
-  triangle(x + 20, y - 30, x + 60, y + 40, x + 40, y + 40); //right wing top
-  triangle(x - 20, y - 30, x - 60, y + 40, x - 40, y + 40); //left wing top
+  triangle(x + 20, y - 30, x + 60, y + 40, x + 40, y + 50); //right wing top
+  triangle(x - 20, y - 30, x - 60, y + 40, x - 40, y + 50); //left wing top
   rect(x - 60, y + 40, 120, 20); // wing bottom
 
   //Bottom wing
   push();
   translate(0, 220);
-  triangle(x + 40, y - 30, x + 70, y + 30, x + 40, y + 30); //right wing top
-  triangle(x - 40, y - 30, x - 70, y + 30, x - 40, y + 30); //left wing top
+  triangle(x + 40, y - 30, x + 70, y + 30, x + 40, y + 40); //right wing top
+  triangle(x - 40, y - 30, x - 70, y + 30, x - 40, y + 40); //left wing top
   rect(x - 70, y + 30, 140, 20); //wing bottom
   pop();
 
