@@ -1,12 +1,45 @@
 let x = 100;
 let direction = "forward";
+let state = "start";
+let gameTimer = 0;
 
 function setup() {
   createCanvas(1000, 720);
 }
 
-function rocketShip(x, y) {
-  //////////////////////////////////////////////////////////////////////////////////////////
+function startScreen() {
+  strokeWeight(0);
+  fill(170, 170, 170);
+  textSize(75);
+  textStyle(BOLD);
+  text("First Man on Mars", 500 - 300, 200);
+  rect(500 - 100, 250, 200, 70, 20);
+  textSize(30);
+  fill(255, 255, 255);
+  text("Play", 500 - 30, 293);
+}
+
+function gameScreen() {
+  //
+}
+
+function winScreen() {
+  strokeWeight(0);
+  fill(170, 170, 170);
+  textSize(75);
+  textStyle(BOLD);
+  text("You win!", 500 - 163, 200);
+}
+
+function dieScreen() {
+  strokeWeight(0);
+  fill(170, 170, 170);
+  textSize(75);
+  textStyle(BOLD);
+  text("You died!", 500 - 180, 200);
+}
+
+function marsAndSpace() {
   strokeWeight(0);
   fill(217, 56, 20);
   ellipse(500, 800, 2000, 400);
@@ -30,7 +63,7 @@ function rocketShip(x, y) {
   point(150, 510);
   point(300, 70);
   point(450, 540);
-  point(500, 320);
+  point(500, 329);
   point(700, 520);
   point(800, 240);
   point(100, 300);
@@ -75,9 +108,9 @@ function rocketShip(x, y) {
   point(840, 270);
   point(250, 400);
   point(980, 230);
-  //////////////////////////////////////////////////////////////////////////////////////////
+}
 
-  push();
+function rocketShip(x, y) {
   scale(0.5);
 
   //Top wing
@@ -126,10 +159,25 @@ function rocketShip(x, y) {
 }
 
 function draw() {
-  push();
   background(0);
-  rocketShip(x, 500);
+  marsAndSpace();
 
+  //tells game what state to go
+  if (state === "start") {
+    startScreen();
+  } else if (state === "game") {
+    gameScreen();
+    gameTimer = gameTimer + 1; //needs to be changed from time to be connected to when the rocket lands
+    if (gameTimer >= 200) {
+      gameTimer = 0;
+      state = "result";
+    }
+  } else if (state === "result") {
+    winScreen(); //changes depening on win or loss
+  }
+
+  //rocket animation
+  rocketShip(x, 500);
   if (direction === "forward") {
     if (x < 2000) {
       x = x + 3;
@@ -143,5 +191,12 @@ function draw() {
       direction = "forward";
     }
   }
-  pop();
+}
+//gets you from start to game, then result back to game
+function mouseClicked() {
+  if (state === "start") {
+    state = "game";
+  } else if (state === "result") {
+    state = "game";
+  }
 }
