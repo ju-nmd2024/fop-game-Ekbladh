@@ -1,7 +1,7 @@
 let state = "start";
-let speed = -5;
+let speed = 5;
 let x = 1000;
-let y = -1000;
+let y = -500;
 
 function setup() {
   createCanvas(1000, 720);
@@ -19,9 +19,7 @@ function startScreen() {
   text("Play", 500 - 30, 293);
 }
 
-function gameScreen() {
-  //
-}
+function gameScreen() {}
 
 function winScreen() {
   strokeWeight(0);
@@ -110,6 +108,14 @@ function marsAndSpace() {
   point(980, 230);
 }
 
+function rocketShipFlame() {
+  push();
+  fill(240, 196, 52);
+  strokeWeight(0);
+  triangle(x - 15, y + 270, x + 0, y + 298, x + 15, y + 270);
+  pop();
+}
+
 function rocketShip(x, y) {
   scale(0.5);
 
@@ -162,18 +168,17 @@ function draw() {
   background(0);
   marsAndSpace();
 
-  //tells game what state to go
   if (state === "start") {
     startScreen();
   } else if (state === "game") {
     gameScreen();
 
-    if (y >= 902 && speed >= 1) {
-      y = -1000;
+    if (y >= 902 && speed <= 3) {
+      y = -500;
       speed = 5;
       state = "win";
-    } else if (y >= 902 && speed >= 1) {
-      y = -1000;
+    } else if (y >= 902 && speed > 3) {
+      y = -500;
       speed = 5;
       state = "loss";
     }
@@ -189,6 +194,7 @@ function draw() {
 
     if (keyIsDown(32)) {
       speed = speed - 0.1;
+      rocketShipFlame();
       console.log(speed);
     } else {
       speed = speed + 0.1;
@@ -197,7 +203,6 @@ function draw() {
   }
 }
 
-//gets you from start to game, then result back to game
 function mouseClicked() {
   if (state === "start") {
     state = "game";
