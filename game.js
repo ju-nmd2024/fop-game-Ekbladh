@@ -1,7 +1,7 @@
 let state = "start";
 let speed = 5;
 let x = 1000;
-let y = -600;
+let y = -500;
 let s = 200;
 let n = 1;
 
@@ -14,11 +14,10 @@ function startScreen() {
   fill(170, 170, 170);
   textSize(75);
   textStyle(BOLD);
-  text("First Man on Mars", 500 - 300, 200);
-  rect(500 - 100, 250, 200, 70, 20);
-  textSize(30);
-  fill(255, 255, 255);
-  text("Play", 500 - 30, 293);
+  textAlign(CENTER);
+  text("First Man on Mars", 500, 200);
+  textSize(25);
+  text("Use to space to Play", 500, 280);
 }
 
 function gameScreen() {}
@@ -28,7 +27,7 @@ function winScreen() {
   fill(170, 170, 170);
   textSize(75);
   textStyle(BOLD);
-  text("You win!", 500 - 163, 200);
+  text("You win!", 500, 200);
   rocketShip(1000, 903);
 }
 
@@ -37,7 +36,7 @@ function lossScreen() {
   fill(170, 170, 170);
   textSize(75);
   textStyle(BOLD);
-  text("You lost!", 500 - 180, 200);
+  text("You lost!", 500, 200);
 }
 
 function marsAndSpace() {
@@ -99,7 +98,7 @@ function marsAndSpace() {
   point(810, 220);
   point(150, 430);
   point(370, 60);
-  point(510, 200);
+  point(510, 190);
   point(470, 470);
   point(270, 180);
   point(730, 440);
@@ -173,6 +172,16 @@ function rocketShip(x, y) {
   bezier(x - 20, y - 20, x + 0, y - 50, x + 20, y - 20, x + 20, y - 20);
 }
 
+function keyPressed() {
+  if (state === "start") {
+    state = "game";
+  } else if (state === "loss") {
+    state = "game";
+  } else if (state === "win") {
+    state = "game";
+  }
+}
+
 function mouseClicked() {
   if (state === "start") {
     state = "game";
@@ -193,11 +202,11 @@ function draw() {
     gameScreen();
 
     if (y >= 902 && speed <= 3) {
-      y = -600;
+      y = -500;
       speed = 5;
       state = "win";
     } else if (y >= 902 && speed > 3) {
-      y = -600;
+      y = -500;
       speed = 5;
       state = "loss";
     }
@@ -205,12 +214,11 @@ function draw() {
     winScreen();
   } else if (state === "loss") {
     lossScreen();
-
     if (s > 700) n = -1;
     explosion();
     s = s + 10 * (n * 2);
     if (s < 0) {
-      state = "game";
+      s = 0;
     }
   }
 
