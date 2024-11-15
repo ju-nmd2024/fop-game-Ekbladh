@@ -1,8 +1,8 @@
 let state = "start";
 let speed = 5;
 let x = 1000;
-let y = -500;
-let s = 100;
+let y = -600;
+let s = 200;
 let n = 1;
 
 function setup() {
@@ -193,11 +193,11 @@ function draw() {
     gameScreen();
 
     if (y >= 902 && speed <= 3) {
-      y = -500;
+      y = -600;
       speed = 5;
       state = "win";
     } else if (y >= 902 && speed > 3) {
-      y = -500;
+      y = -600;
       speed = 5;
       state = "loss";
     }
@@ -205,16 +205,18 @@ function draw() {
     winScreen();
   } else if (state === "loss") {
     lossScreen();
+
+    if (s > 700) n = -1;
     explosion();
-    s = s + n * 7;
-    if (s < 500) {
-      n = -1;
-      s = s - n * 7;
+    s = s + 10 * (n * 2);
+    if (s < 0) {
+      state = "game";
     }
   }
 
   if (state === "game") {
-    s = 100;
+    n = 1;
+    s = 200;
     rocketShip(x, y);
     y = y + speed;
 
