@@ -2,6 +2,7 @@ let state = "start";
 let speed = 5;
 let x = 1000;
 let y = -500;
+let s = 100;
 
 function setup() {
   createCanvas(1000, 720);
@@ -27,6 +28,7 @@ function winScreen() {
   textSize(75);
   textStyle(BOLD);
   text("You win!", 500 - 163, 200);
+  rocketShip(1000, 903);
 }
 
 function lossScreen() {
@@ -108,6 +110,12 @@ function marsAndSpace() {
   point(980, 230);
 }
 
+function explosion() {
+  fill(256, 208, 32);
+  strokeWeight(0);
+  ellipse(500, 551, s, s);
+}
+
 function rocketShipFlame() {
   push();
   fill(240, 196, 52);
@@ -164,6 +172,16 @@ function rocketShip(x, y) {
   bezier(x - 20, y - 20, x + 0, y - 50, x + 20, y - 20, x + 20, y - 20);
 }
 
+function mouseClicked() {
+  if (state === "start") {
+    state = "game";
+  } else if (state === "loss") {
+    state = "game";
+  } else if (state === "win") {
+    state = "game";
+  }
+}
+
 function draw() {
   background(0);
   marsAndSpace();
@@ -186,9 +204,14 @@ function draw() {
     winScreen();
   } else if (state === "loss") {
     lossScreen();
+    explosion();
+    if (s < 500) {
+      s = s + 7;
+    }
   }
 
   if (state === "game") {
+    s = 100;
     rocketShip(x, y);
     y = y + speed;
 
@@ -200,15 +223,5 @@ function draw() {
       speed = speed + 0.1;
       console.log(speed);
     }
-  }
-}
-
-function mouseClicked() {
-  if (state === "start") {
-    state = "game";
-  } else if (state === "loss") {
-    state = "game";
-  } else if (state === "win") {
-    state = "game";
   }
 }
