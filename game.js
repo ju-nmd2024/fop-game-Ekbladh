@@ -3,6 +3,7 @@ let speed = 5;
 let x = 1000;
 let y = -500;
 let s = 100;
+let n = 1;
 
 function setup() {
   createCanvas(1000, 720);
@@ -205,8 +206,10 @@ function draw() {
   } else if (state === "loss") {
     lossScreen();
     explosion();
+    s = s + n * 7;
     if (s < 500) {
-      s = s + 7;
+      n = -1;
+      s = s - n * 7;
     }
   }
 
