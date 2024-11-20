@@ -113,7 +113,7 @@ function marsAndSpace() {
 function explosion() {
   fill(256, 208, 32);
   strokeWeight(0);
-  ellipse(500, 551, s, s);
+  ellipse(500, 551, s);
 }
 
 function rocketShipFlame() {
@@ -182,16 +182,6 @@ function keyPressed() {
   }
 }
 
-function mouseClicked() {
-  if (state === "start") {
-    state = "game";
-  } else if (state === "loss") {
-    state = "game";
-  } else if (state === "win") {
-    state = "game";
-  }
-}
-
 function draw() {
   background(0);
   marsAndSpace();
@@ -199,7 +189,7 @@ function draw() {
   if (state === "start") {
     startScreen();
   } else if (state === "game") {
-    gameScreen();
+    //gameScreen();
 
     if (y >= 902 && speed <= 3) {
       y = -500;
